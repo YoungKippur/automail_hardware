@@ -1,0 +1,12 @@
+<library path="automail_hardware">
+  <class name="automail_hardware/AutomailSerialHardware"
+         type="automail_hardware::AutomailSerialHardware"
+         base_class_type="hardware_interface::SystemInterface">
+    <description>
+      Hardware interface para el brazo AutoMail.
+      Controla 7 servos PWM a través de un Arduino conectado por USB serie.
+      Protocolo: "S&lt;id&gt;:&lt;angulo_grados&gt;\n"  (ejemplo: "S0:90\n")
+      Respuesta del Arduino: "OK\n"
+    </description>
+  </class>
+</library>
