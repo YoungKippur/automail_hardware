@@ -185,13 +185,14 @@ AutomailSerialHardware::write(
 
   for (size_t i = 0; i < joint_names_.size(); ++i) {
     // Límites del joint del URDF
+    // En ROS Humble, min/max son std::string, no std::optional<double>
     const auto & j = info_.joints[i];
     double joint_lo = -M_PI, joint_hi = M_PI;
-    if (j.command_interfaces[0].min.has_value()) {
-      joint_lo = *j.command_interfaces[0].min;
+    if (!j.command_interfaces[0].min.empty()) {
+      joint_lo = std::stod(j.command_interfaces[0].min);
     }
-    if (j.command_interfaces[0].max.has_value()) {
-      joint_hi = *j.command_interfaces[0].max;
+    if (!j.command_interfaces[0].max.empty()) {
+      joint_hi = std::stod(j.command_interfaces[0].max);
     }
 
     if (!sendCommand(static_cast<int>(i), hw_commands_[i])) {
